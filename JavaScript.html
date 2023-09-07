@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // Fungsi untuk menghitung harga kotor
+function hitungHargaKotor(produk, jumlahBeli) {
+  var hargaSatuan;
+
+  if (produk === "TV") {
+    hargaSatuan = 2000000;
+  } else if (produk === "AC") {
+    hargaSatuan = 3000000;
+  } else if (produk === "Kulkas") {
+    hargaSatuan = 4000000;
+  } else {
+    hargaSatuan = 0;
+  }
+
+  return hargaSatuan * jumlahBeli;
+}
+
+// Mengambil input dari pengguna
+var pelanggan = prompt("Masukkan nama pelanggan:");
+var produkPilihan = prompt("Masukkan produk yang dibeli (TV/AC/Kulkas):");
+var jml_beli = parseInt(prompt("Masukkan jumlah yang dibeli:"));
+
+// Menghitung harga kotor
+var hargaKotor;
+if (produkPilihan === "TV") {
+  hargaKotor = hitungHargaKotor("TV", jml_beli);
+} else if (produkPilihan === "AC") {
+  hargaKotor = hitungHargaKotor("AC", jml_beli);
+} else if (produkPilihan === "Kulkas") {
+  hargaKotor = hitungHargaKotor("Kulkas", jml_beli);
+} else {
+  hargaKotor = 0;
+}
+
+// Menghitung diskon menggunakan operator ternary
+var diskon = (jml_beli > 1) ? ((produkPilihan === "Kulkas" && jml_beli >= 3) ? 0.3 : 0.1) : 0;
+
+// Menghitung PPN
+var ppn = (hargaKotor * (1 - diskon) * 0.11);
+
+// Menghitung harga bayar
+var hargaBayar = (hargaKotor * (1 - diskon) + ppn);
+
+// Cetak hasil
+document.write("Pelanggan: " + pelanggan +
+ "<br/> Produk Pilihan: " + produkPilihan +
+ "<br/> Jumlah Beli: " + jml_beli +
+ "<br/> Harga Kotor: " + hargaKotor.toLocaleString("id-ID") +
+ "<br/> Diskon: " + (diskon * 100) + "%" +
+ "<br/> PPN: " + ppn.toLocaleString("id-ID") +
+ "<br/>Harga Bayar: " + hargaBayar.toLocaleString("id-ID"));
+
+// Mengambil input pembayaran dari pengguna setelah perhitungan selesai
+var pembayaran = parseFloat(prompt("Total belanja Anda adalah " + hargaBayar.toLocaleString("id-ID") + ". Masukkan jumlah pembayaran:"));
+
+// Menghitung sisa pembayaran
+var sisa = (pembayaran - hargaBayar).toLocaleString("id-ID");
+
+// Menampilkan sisa pembayaran
+document.write("Pembayaran: " + pembayaran.toLocaleString("id-ID") +
+ "<br/> Sisa Pembayaran: " + sisa);
+  </script>
+</body>
+</html>
